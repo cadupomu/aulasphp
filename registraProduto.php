@@ -13,5 +13,8 @@
         $msg = "Falha na gravação";
     }
 
-    header("location: formulario-cadastra-produto.php?notify={$msg}");
+    $page = "formulario-edita-produto.php";
+    setcookie('notify', $msg, time() + 10, "/hortifruti/{$page}", 'localhost');
+    header("location: {$page}");
     exit;
+   

@@ -7,12 +7,15 @@ require_once('repository/hortifrutirepository.php');
     $quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_VALIDATE_INT);
     $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_NUMBER_INT);
 
-    $msg = "";
     if(fnUpdateProduto($id, $produto, $quantidade, $valor)) {
         $msg = "Sucesso ao gravar";
     } else {
         $msg = "Falha na gravação";
     }
 
-    header("location: formulario-edita-produto.php?notify={$msg}&id=$id");
+    $_SESSION['id'] = $id;
+    $page = "formulario-edita-produto.php";
+    setcookie('notify', $msg, time() + 10, "/hortifruti/{$page}", 'localhost');
+    header("location: {$page}");
     exit;
+   
