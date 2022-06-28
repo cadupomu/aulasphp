@@ -1,6 +1,8 @@
 <?php 
     include('config.php');
     require_once('repository/hortifrutirepository.php'); 
+
+    $produto = filter_input(INPUT_GET, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
    
 ?>
 <!doctype html>
@@ -33,8 +35,8 @@
                    <td><?= $hortifruti->quantidade ?></td> 
                    <td><?= $hortifruti->valor ?></td> 
                    <td><?= $hortifruti->create_at ?></td> 
-                   <td><a href="formulario-edita-produto.php?id=<?= $hortifruti->id ?>">Editar</a></td> 
-                   <td><a onclick="return confirm('Deseja realmente excluir?');" href="excluirProduto.php?id=<?= $hortifruti->id ?>">Excluir</a></td> 
+                   <td><a href="#" onclick="gerirUsuario(<?= $hortifruti->id ?>, 'edit');">Editar</a></td> 
+                   <td><a onclick="return confirm('Deseja realmente excluir?') ? gerirUsuario(<?= $hortifruti->id ?>, 'del') : '';" href="#">Excluir</a></td> 
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -48,5 +50,32 @@
         </table>
     </div>
     <?php include("rodape.php"); ?>
+    <script>
+        window.post = (data) => {
+            return fetch(
+                'set-session.php',
+                {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                }
+            )
+            .then(response => {
+                // template string
+                console.log(`Requisição completa! Resposta:`, response);
+            });
+        }
+
+        function gerirUsuario(id, action) {
+            
+            post({data : id});
+
+            url = 'excluirProduto.php';
+            if(action === 'edit')
+                url = 'formulario-edita-produto.php';
+
+            window.location.href = url;
+        }
+    </script>
   </body>
 </html>

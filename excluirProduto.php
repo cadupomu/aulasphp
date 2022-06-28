@@ -10,6 +10,8 @@
         $msg = "Falha ao apagar";
     }
 
+    unset($_SESSION['id']);
+
     $page = "listagem-de-produtos.php";
     setcookie('notify', $msg, time() + 10, "/hortifruti/{$page}", 'localhost');
     header("location: {$page}");
