@@ -6,11 +6,14 @@
     $quantidade = filter_input(INPUT_POST, 'quantidade', FILTER_SANITIZE_NUMBER_INT);
     $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_NUMBER_FLOAT);
 
-    $msg = "";
-    if(fnAddProduto($produto, $quantidade, $valor)) {
-        $msg = "Sucesso ao gravar";
+    if(empty($produto) || empty($valor) || empty($quantidade)) {
+        $msg = "Preencher todos os campos primeiro.";
     } else {
-        $msg = "Falha na gravação";
+        if(fnAddProduto($produto, $valor, $quantidade)) {
+            $msg = "Sucesso ao gravar";
+        } else {
+            $msg = "Falha na gravação";
+        }
     }
 
     $page = "formulario-edita-produto.php";
