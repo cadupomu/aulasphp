@@ -17,9 +17,17 @@
     <div class="col-6 offset-3">
         <fieldset>
             <legend>Edição de Produto</legend>
-            <form action="editaProduto.php" method="post" class="form">
+            <form action="editaProduto.php" method="post" class="form" enctype="multipart/form-data">
+            <div class="card col-4 offset-4 text-center">
+                    <img src="<?= $hortifruti->foto ?>" id="avatarId" class="rounded" alt="foto do produto">
+             </div>
                 <div>
                     <input type="hidden" name="idProduto" id="produtoId"value="<?= $hortifruti->id ?>">
+                </div>
+                <div class="mb-3 form-group">
+                  <label for="fotoId" class="form-label">Foto</label>
+                  <input type="file" name="foto" id="fotoId" class="form-control">
+                  <div id="helperFoto" class="form-text">Importe a foto</div>
                 </div>
                 <div class="mb-3 form-group">
                     <label for="produtoId" class="form-label">Produto</label>
@@ -42,5 +50,6 @@
         </fieldset>
     </div>
     <?php include("rodape.php"); ?>
+   <script src="js/base64.js"></script>
   </body>
 </html>

@@ -9,6 +9,8 @@ create or replace table hortifruti(
     create_at timestamp not null default current_timestamp
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+alter table hortifruti add column foto text not null default "imagens\\avatar.png" after produto;
+
 create or replace table login(
     id int primary key auto_increment,
     email varchar(250) not null unique,

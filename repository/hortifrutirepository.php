@@ -3,13 +3,14 @@
     require_once('connection.php');
 
 
-    function fnAddProduto($produto, $quantidade, $valor) {
+    function fnAddProduto($produto, $foto, $quantidade, $valor) {
         $con = getConnection();
         
-        $sql = "insert into hortifruti (produto, quantidade, valor) values (:pProduto, :pQuantidade, :pValor)";
+        $sql = "insert into hortifruti (produto, foto, quantidade, valor) values (:pProduto, :pQuantidade, :pValor)";
         
         $stmt = $con->prepare($sql);
         $stmt->bindParam(":pProduto", $produto); 
+        $stmt->bindParam(":pFoto", $foto); 
         $stmt->bindParam(":pQuantidade", $quantidade); 
         $stmt->bindParam(":pValor", $valor); 
         
@@ -46,14 +47,15 @@
         return null;
     }
     
-    function fnUpdateProduto($id, $produto, $quantidade, $valor) {
+    function fnUpdateProduto($id, $produto, $foto, $quantidade, $valor) {
         $con = getConnection();
                 
-        $sql = "update hortifruti set produto = :pProduto, quantidade = :pQuantidade, valor = :pValor where id = :pID";
+        $sql = "update hortifruti set produto = :pProduto, foto = :pFoto, quantidade = :pQuantidade, valor = :pValor where id = :pID";
         
         $stmt = $con->prepare($sql);
         $stmt->bindParam(":pID", $id); 
         $stmt->bindParam(":pProduto", $produto); 
+        $stmt->bindParam(":pFoto", $foto); 
         $stmt->bindParam(":pQuantidade", $quantidade); 
         $stmt->bindParam(":pValor", $valor); 
         
